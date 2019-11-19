@@ -13,6 +13,7 @@
 		CE9392E7238022B200004D6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9392E5238022B200004D6A /* Main.storyboard */; };
 		CE9392E9238022B600004D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9392E8238022B600004D6A /* Assets.xcassets */; };
 		CE9392EC238022B600004D6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9392EA238022B600004D6A /* LaunchScreen.storyboard */; };
+		CE9392F7238275C400004D6A /* TimeStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9392F6238275C400004D6A /* TimeStatusModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		CE9392E8238022B600004D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9392EB238022B600004D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE9392ED238022B600004D6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE9392F6238275C400004D6A /* TimeStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStatusModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,40 @@
 		CE9392DE238022B200004D6A /* StopwatchS */ = {
 			isa = PBXGroup;
 			children = (
+				CE9392F42382754900004D6A /* Models */,
+				CE9392F32382753200004D6A /* Views */,
+				CE9392F52382755100004D6A /* ViewControllers */,
 				CE9392DF238022B200004D6A /* AppDelegate.swift */,
 				CE9392E1238022B200004D6A /* SceneDelegate.swift */,
-				CE9392E3238022B200004D6A /* ViewController.swift */,
 				CE9392E5238022B200004D6A /* Main.storyboard */,
 				CE9392E8238022B600004D6A /* Assets.xcassets */,
 				CE9392EA238022B600004D6A /* LaunchScreen.storyboard */,
 				CE9392ED238022B600004D6A /* Info.plist */,
 			);
 			path = StopwatchS;
+			sourceTree = "<group>";
+		};
+		CE9392F32382753200004D6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE9392F42382754900004D6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE9392F52382755100004D6A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE9392F6238275C400004D6A /* TimeStatusModel.swift */,
+				CE9392E3238022B200004D6A /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9392F7238275C400004D6A /* TimeStatusModel.swift in Sources */,
 				CE9392E4238022B200004D6A /* ViewController.swift in Sources */,
 				CE9392E0238022B200004D6A /* AppDelegate.swift in Sources */,
 				CE9392E2238022B200004D6A /* SceneDelegate.swift in Sources */,

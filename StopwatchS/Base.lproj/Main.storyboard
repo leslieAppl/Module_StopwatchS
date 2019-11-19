@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,65 +12,74 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StopwatchS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myGF" translatesAutoresizingMaskIntoConstraints="NO" id="qjZ-oa-3v7">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2u-QI-4Qx">
-                                <rect key="frame" x="50.5" y="665" width="174" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZC-NB-UyK">
+                                <rect key="frame" x="247" y="93" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="5pQ-Z7-Mgs"/>
+                                    <constraint firstAttribute="height" constant="40" id="JOT-eY-RVW"/>
+                                </constraints>
+                                <state key="normal" image="startRunningButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gHP-4E-XKV"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2u-QI-4Qx">
+                                <rect key="frame" x="85" y="586" width="113" height="48"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="UOK-qg-6IR">
-                                <rect key="frame" x="33" y="730" width="209" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZC-NB-UyK">
-                                        <rect key="frame" x="0.0" y="0.0" width="87" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
-                                        <state key="normal" title="Start">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="stopWatchBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zxl-tM-uLH"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ats-qv-Lq8">
-                                        <rect key="frame" x="108" y="0.0" width="101" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
-                                        <state key="normal" title="Reset">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6D-rF-4uu">
+                                <rect key="frame" x="286" y="85" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="2h2-xV-aIT"/>
+                                    <constraint firstAttribute="width" constant="40" id="FsY-Aq-aNm"/>
+                                </constraints>
+                                <state key="normal" image="endRunButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="stopBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ovh-Vw-NCo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qjZ-oa-3v7" secondAttribute="bottom" id="40m-rI-YiA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Q2u-QI-4Qx" secondAttribute="bottom" constant="144" id="8jW-oQ-50e"/>
+                            <constraint firstItem="Q2u-QI-4Qx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="85" id="BZQ-7m-GM7"/>
                             <constraint firstItem="qjZ-oa-3v7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ec4-75-WtY"/>
-                            <constraint firstItem="Q2u-QI-4Qx" firstAttribute="centerX" secondItem="UOK-qg-6IR" secondAttribute="centerX" id="Qlx-sg-VSw"/>
-                            <constraint firstItem="UOK-qg-6IR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="RzZ-fx-Lbv"/>
+                            <constraint firstItem="DZC-NB-UyK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="49" id="VUi-Hk-mcI"/>
+                            <constraint firstItem="i6D-rF-4uu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="Wpl-Ee-71L"/>
+                            <constraint firstItem="i6D-rF-4uu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="286" id="Wut-zp-38m"/>
                             <constraint firstItem="qjZ-oa-3v7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="afz-pS-Skn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="UOK-qg-6IR" secondAttribute="bottom" constant="72" id="hWk-We-nbk"/>
-                            <constraint firstItem="UOK-qg-6IR" firstAttribute="top" secondItem="Q2u-QI-4Qx" secondAttribute="bottom" constant="17" id="qD1-5x-Ch6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DZC-NB-UyK" secondAttribute="trailing" constant="88" id="i9k-hf-2ty"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Q2u-QI-4Qx" secondAttribute="trailing" symbolic="YES" id="iDd-OD-QDU"/>
                             <constraint firstItem="qjZ-oa-3v7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vsg-aa-zoy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="displayLbl" destination="Q2u-QI-4Qx" id="nJZ-9b-YPq"/>
-                        <outlet property="stopWatchBtn" destination="DZC-NB-UyK" id="zqR-Mf-DVV"/>
+                        <outlet property="startBtn" destination="DZC-NB-UyK" id="uDS-LW-rvO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="120.53571428571428"/>
+            <point key="canvasLocation" x="136.80000000000001" y="120.44334975369459"/>
         </scene>
     </scenes>
     <resources>
+        <image name="endRunButton" width="57" height="57"/>
         <image name="myGF" width="2448" height="3264"/>
+        <image name="startRunningButton" width="71" height="71"/>
     </resources>
 </document>
