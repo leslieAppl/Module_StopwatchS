@@ -16,15 +16,6 @@ class ViewController: UIViewController {
     
     var timer = Timer()
     
-    var targetTime: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: #function)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: #function)
-        }
-    }
-    
     var stopWatchIsOn: Bool {
         get {
             return UserDefaults.standard.bool(forKey: #function)
@@ -56,8 +47,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Add gesture to displayLbl
+        let tapToResetGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resetTime))
+        displayLbl.addGestureRecognizer(tapToResetGesture)
+        displayLbl.isUserInteractionEnabled = true
+        tapToResetGesture.delegate = self as UIGestureRecognizerDelegate
+        
+        runTimerForever()
     }
     
+    func runTimerForever() {
+        // even if shutdown the app, it will still keep counting from last time whenever open it again!!
+        if stopWatchIsOn {
+        stopWatchIsOn = true
+        // if keep "startTime = Date()" here, the app will always start from "0"
+//        startTime = Date()
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
+        pauseRun()
+        }
+    }
+        
     func pauseRun() {
         startBtn.setImage(UIImage(named: "pauseButton"), for: .normal)
     }
@@ -69,23 +78,12 @@ class ViewController: UIViewController {
     func reset() {
         stopWatchIsOn = false
         totalTime = 0
-        targetTime = -1
         timer.invalidate()
     }
     
     @objc func change() {
-        if targetTime == -1 {
-            let displayTime = Date().timeIntervalSince(startTime) + totalTime
-            covertTimeInterval(interval: TimeInterval(displayTime))
-            
-            print(">> TimeVC.change.displayTime: \(displayTime)")
-        } else {
-            let intervalTime = startTime.timeIntervalSinceNow
-            let displayTime = Int(intervalTime) + targetTime
-            covertTimeInterval(interval: TimeInterval(displayTime))
-            print(">> TimeVC.change.intervalTime(startTime.timeIntervalSinceNow): \(intervalTime)")
-            print(">> TimeVC.change.displayTime(intervalTime + targetTime): \(displayTime)")
-        }
+        let displayTime = Date().timeIntervalSince(startTime) + totalTime
+        covertTimeInterval(interval: TimeInterval(displayTime))
     }
     
     func covertTimeInterval(interval: TimeInterval) {
@@ -94,12 +92,9 @@ class ViewController: UIViewController {
         let seconds = absInterval % 60
         let minutes = (absInterval / 60) % 60
         let hours = (absInterval / 3600)
+        let msec = interval.truncatingRemainder(dividingBy: 1)
         
-        if targetTime == -1 {
-            let msec = interval.truncatingRemainder(dividingBy: 1)
-            
-            displayLbl.text = hours == 0 ? String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100)) : String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100))
-        }
+        displayLbl.text = hours == 0 ? String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100)) : String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100))
         
         if hours != 0 {
             displayLbl.text = String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds)
@@ -111,11 +106,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startBtnPressed(_ sender: Any) {
-        //reset timer when user press this button when timer is running
-        if targetTime != -1 {
-            reset()
-        }
-        targetTime = -1
         timer.invalidate()
         pauseRun()
         if !stopWatchIsOn {
@@ -132,6 +122,14 @@ class ViewController: UIViewController {
     
     @IBAction func stopBtnPressed(_ sender: Any) {
         reset()
+        startBtn.setImage(UIImage(named: "startRunningButton"), for: .normal)
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    @objc func resetTime(sender: UITapGestureRecognizer) {
+        reset()
+        displayLbl.text = "0"
         startBtn.setImage(UIImage(named: "startRunningButton"), for: .normal)
     }
 }
