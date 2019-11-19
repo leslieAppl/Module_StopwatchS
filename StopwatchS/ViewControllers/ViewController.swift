@@ -53,25 +53,41 @@ class ViewController: UIViewController {
         displayLbl.isUserInteractionEnabled = true
         tapToResetGesture.delegate = self as UIGestureRecognizerDelegate
         
-        runTimerForever()
+        restoreStatus()
     }
     
-    func runTimerForever() {
-        // even if shutdown the app, it will still keep counting from last time whenever open it again!!
+    func restoreStatus() {
+        
         if stopWatchIsOn {
-        stopWatchIsOn = true
-        // if keep "startTime = Date()" here, the app will always start from "0"
-//        startTime = Date()
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
-        pauseRun()
+            // run Timer forever mode.
+            // even if shutdown the app, it will still keep counting from last time whenever open it again!!
+            stopWatchIsOn = true
+            
+            //if keep the code "startTime = Date()" here, app will always start from "0".
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
+            
+            toPause()
+        } else {
+            if totalTime == 0.0 {
+                // reset mode.
+                // perfectly stopped timer then shutdown the app.
+            } else if totalTime > 0.0 {
+                // before shutdown the app the startBtn is on 'toResume' mode.
+                // press the toResume button to continue accounting time after restarting the app.
+                toResume()
+                let displayTime = totalTime
+                covertTimeInterval(interval: TimeInterval(displayTime))
+                stopWatchIsOn = false
+            }
+            
         }
     }
         
-    func pauseRun() {
+    func toPause() {
         startBtn.setImage(UIImage(named: "pauseButton"), for: .normal)
     }
     
-    func continueRun() {
+    func toResume() {
         startBtn.setImage(UIImage(named: "resumeButton"), for: .normal)
     }
     
@@ -107,16 +123,19 @@ class ViewController: UIViewController {
     
     @IBAction func startBtnPressed(_ sender: Any) {
         timer.invalidate()
-        pauseRun()
+        toPause()
+        
         if !stopWatchIsOn {
             stopWatchIsOn = true
             startTime = Date()
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
-            pauseRun()
+            
+            toPause()
         } else {
             stopWatchIsOn = false
-            continueRun()
             totalTime += Date().timeIntervalSince(startTime)
+            
+            toResume()
         }
     }
     
