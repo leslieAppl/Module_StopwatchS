@@ -59,25 +59,33 @@ class ViewController: UIViewController {
     func restoreStatus() {
         
         if stopWatchIsOn {
-            // run Timer forever mode.
-            // even if shutdown the app, it will still keep counting from last time whenever open it again!!
+            // continue Timer mode
+            // continue Timer tick-tock
+            
+            // remove 'Reset Timer to 00:00 function' below
+            // Change current time value to 'startTime' variable at plist.
+            // startTime = Date()
+            
+            // setting (sending message to) Timer tick-tock interval value to the Timer instance.
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(toStart), userInfo: nil, repeats: true)
+            
             stopWatchIsOn = true
-            
-            //if keep the code "startTime = Date()" here, app will always start from "0".
-            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
-            
+            print(">>> stopWatchIsOn: \(stopWatchIsOn)")
             toPause()
         } else {
             if totalTime == 0.0 {
-                // reset mode.
-                // perfectly stopped timer then shutdown the app.
+                // reset Timer mode.
+                // ready to restart from 00:00
             } else if totalTime > 0.0 {
-                // before shutdown the app the startBtn is on 'toResume' mode.
-                // press the toResume button to continue accounting time after restarting the app.
+                // Paused Timer mode
+                // ready to Resume Timer
                 toResume()
+                
                 let displayTime = totalTime
                 covertTimeInterval(interval: TimeInterval(displayTime))
+                
                 stopWatchIsOn = false
+                print(">>> stopWatchIsOn: \(stopWatchIsOn)")
             }
             
         }
@@ -91,13 +99,18 @@ class ViewController: UIViewController {
         startBtn.setImage(UIImage(named: "resumeButton"), for: .normal)
     }
     
-    func reset() {
-        stopWatchIsOn = false
-        totalTime = 0
+    func toReset() {
         timer.invalidate()
+        totalTime = 0
+        print(">>> saving totalTime: \(totalTime)")
+        
+        stopWatchIsOn = false
+        print(">>> stopWatchIsOn: \(stopWatchIsOn)")
     }
     
-    @objc func change() {
+    @objc func toStart() {
+        // dot-notation to call 'timeIntervalSince()' function sending message 'displayTime' variable.
+        // timeIntervalSince's parameter: fetch saved 'startTime' value from plist.
         let displayTime = Date().timeIntervalSince(startTime) + totalTime
         covertTimeInterval(interval: TimeInterval(displayTime))
     }
@@ -122,33 +135,45 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startBtnPressed(_ sender: Any) {
+        // stop Timer tick-tock
         timer.invalidate()
         toPause()
         
         if !stopWatchIsOn {
-            stopWatchIsOn = true
-            startTime = Date()
-            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(change), userInfo: nil, repeats: true)
+            // To Start Timer
             
+            // Reset Timer to 00:00
+            // Change current time value to 'startTime' variable at plist.
+            startTime = Date()
+            print(">>> saving startTime: Date \(startTime)")
+            
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(toStart), userInfo: nil, repeats: true)
+            
+            stopWatchIsOn = true
+            print(">>> stopWatchIsOn: \(stopWatchIsOn)")
             toPause()
         } else {
-            stopWatchIsOn = false
+            // To Pause Timer
+            // adding 'time interval since startTime' onto the 'totalTime' variable.
             totalTime += Date().timeIntervalSince(startTime)
+            print(">>> saving totalTime: \(totalTime)")
             
             toResume()
+            stopWatchIsOn = false
+            print(">>> stopWatchIsOn: \(stopWatchIsOn)")
         }
     }
     
     @IBAction func stopBtnPressed(_ sender: Any) {
-        reset()
+        toReset()
         startBtn.setImage(UIImage(named: "startRunningButton"), for: .normal)
     }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
     @objc func resetTime(sender: UITapGestureRecognizer) {
-        reset()
-        displayLbl.text = "0"
+        toReset()
+        displayLbl.text = "00:00"
         startBtn.setImage(UIImage(named: "startRunningButton"), for: .normal)
     }
 }

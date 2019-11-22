@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,9 +32,12 @@
                                     <action selector="startBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gHP-4E-XKV"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2u-QI-4Qx">
-                                <rect key="frame" x="269.66666666666669" y="197" width="25.333333333333314" height="48"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2u-QI-4Qx">
+                                <rect key="frame" x="255" y="197" width="100" height="26.333333333333343"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="y7z-OQ-0N5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,9 +57,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q2u-QI-4Qx" secondAttribute="trailing" constant="20" id="2yY-Ca-r7Y"/>
                             <constraint firstAttribute="bottom" secondItem="qjZ-oa-3v7" secondAttribute="bottom" id="40m-rI-YiA"/>
                             <constraint firstItem="qjZ-oa-3v7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ec4-75-WtY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q2u-QI-4Qx" secondAttribute="trailing" constant="80" id="Iof-ej-Pk0"/>
                             <constraint firstItem="DZC-NB-UyK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="75" id="PRd-ME-J56"/>
                             <constraint firstItem="qjZ-oa-3v7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="afz-pS-Skn"/>
                             <constraint firstItem="i6D-rF-4uu" firstAttribute="top" secondItem="DZC-NB-UyK" secondAttribute="bottom" constant="20" id="jxO-Vp-UcQ"/>
