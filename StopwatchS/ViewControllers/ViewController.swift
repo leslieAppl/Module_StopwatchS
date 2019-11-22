@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var displayLbl: UILabel!
+    @IBOutlet weak var disLbl: UILabel!
     @IBOutlet weak var startBtn: UIButton!
     
     
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
         
         //Add gesture to displayLbl
         let tapToResetGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resetTime))
-        displayLbl.addGestureRecognizer(tapToResetGesture)
-        displayLbl.isUserInteractionEnabled = true
+        disLbl.addGestureRecognizer(tapToResetGesture)
+        disLbl.isUserInteractionEnabled = true
         tapToResetGesture.delegate = self as UIGestureRecognizerDelegate
-        
+
         restoreStatus()
     }
     
@@ -105,33 +105,42 @@ class ViewController: UIViewController {
         print(">>> saving totalTime: \(totalTime)")
         
         stopWatchIsOn = false
-        print(">>> stopWatchIsOn: \(stopWatchIsOn)")
+            print(">>> stopWatchIsOn: \(stopWatchIsOn)")
     }
     
     @objc func toStart() {
         // dot-notation to call 'timeIntervalSince()' function sending message 'displayTime' variable.
         // timeIntervalSince's parameter: fetch saved 'startTime' value from plist.
         let displayTime = Date().timeIntervalSince(startTime) + totalTime
+            print("> displayTime: \(displayTime)")
         covertTimeInterval(interval: TimeInterval(displayTime))
     }
     
+    // parameter (interval: TimeInterval): A TimeInterval value is always specified in seconds.
     func covertTimeInterval(interval: TimeInterval) {
 
         let absInterval = abs(Int(interval))
+            print(">> absInterval: \(absInterval)")
         let seconds = absInterval % 60
+            print(">> seconds: \(seconds)")
         let minutes = (absInterval / 60) % 60
+            print(">> minutes: \(minutes)")
+        // the hours doesn't need to use remainder, cause the hour can bigger than 60.
         let hours = (absInterval / 3600)
+            print(">> hours: \(hours)")
         let msec = interval.truncatingRemainder(dividingBy: 1)
+            print(">> msec: \(msec)")
         
-        displayLbl.text = hours == 0 ? String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100)) : String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100))
+        // displayLbl.text =  [ hours == 0 ]  ?  [ String(format: 1 ) ]  :  [ String(format: 2 ) ]
+        // 'hours == 0' is a condition.
+        // if it's true, assign the String(format:) after the '?' mark into displayLbl.text.
+        // if it's false, assign the String(format:) after the ':' mark into displayLbl.text.
+        disLbl.text = hours == 0
+            ? String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100))
+            : String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds) + "." + String(format: "%.2d", Int(msec * 100))
         
-        if hours != 0 {
-            displayLbl.text = String(hours) + ":" + String(format: "%.2d", minutes) + ":" + String(format: "%.2d", seconds)
-        } else if minutes != 0 {
-            displayLbl.text = String(minutes) + ":" + String(format: "%.2d", seconds)
-        } else {
-            displayLbl.text = String(seconds)
-        }
+        // require fixed distances between digits.
+        disLbl.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .regular)
     }
     
     @IBAction func startBtnPressed(_ sender: Any) {
@@ -173,7 +182,7 @@ class ViewController: UIViewController {
 extension ViewController: UIGestureRecognizerDelegate {
     @objc func resetTime(sender: UITapGestureRecognizer) {
         toReset()
-        displayLbl.text = "00:00"
+        disLbl.text = "00:00.00"
         startBtn.setImage(UIImage(named: "startRunningButton"), for: .normal)
     }
 }
